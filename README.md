@@ -1,3 +1,5 @@
+![](https://github.com/politinsa/ndarray-unit/workflows/Build/badge.svg)
+![](https://github.com/politinsa/ndarray-unit/workflows/Tests/badge.svg)
 # ndarray-unit
 
 This module provides a struct being a simple representation of the international measure system and an Enum containing all of the seven base unit of the Internation SI.
