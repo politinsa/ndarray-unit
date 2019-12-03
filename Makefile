@@ -2,7 +2,8 @@ all:
 	cargo fmt
 	cargo build
 	cargo test
-	cargo doc --target-dir doc
+	cargo doc
+	cp -r ./target/doc doc
 	cargo run
 
 clean:
