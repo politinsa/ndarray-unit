@@ -3,7 +3,7 @@ all:
 	cargo build
 	cargo test
 	cargo doc
-	cp -r ./target/doc doc
+	cp -r ./target/doc docs
 	cargo run
 
 clean:
