@@ -1,7 +1,8 @@
 all:
+	cargo fmt
 	cargo build
 	cargo test
-	cargo doc
+	cargo doc --target-dir doc
 	cargo run
 
 clean:

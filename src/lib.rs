@@ -26,7 +26,12 @@ mod unit;
 pub use unit::BaseUnit;
 pub use unit::Unit;
 
+mod array_unit;
+pub use array_unit::ArrayUnit;
+
+//////////////////////////
 // Getters for base units
+//////////////////////////
 
 /// Utility method to get a Unit from a BaseUnit (BaseUnit::METER)
 pub fn get_meter() -> Unit {
@@ -58,7 +63,19 @@ pub fn get_ampere() -> Unit {
     Unit::from_vec(vec![(BaseUnit::AMPERE, 1)])
 }
 
+/// Utility method to get a Unit from a BaseUnit (BaseUnit::RADIAN)
+pub fn get_radian() -> Unit {
+    Unit::from_vec(vec![(BaseUnit::RADIAN, 1)])
+}
+
+/// Utility method to get a Unit from a BaseUnit (BaseUnit::STERADIAN)
+pub fn get_steradian() -> Unit {
+    Unit::from_vec(vec![(BaseUnit::STERADIAN, 1)])
+}
+
+/////////////////////////////
 // Getters for composed units
+/////////////////////////////
 
 /// Utility method to get the Joule Unit (composed)
 pub fn get_newton() -> Unit {
@@ -150,7 +167,6 @@ pub fn get_tesla() -> Unit {
         (BaseUnit::AMPERE, -1),
     ])
 }
-
 
 #[cfg(test)]
 mod test;
