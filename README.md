@@ -4,8 +4,8 @@
 
 # ndarray-unit
 
-* Official homepage on [crates.io](https://crates.io/crates/ndarray-unit)
-* Official **doc** on [doc.rs](https://docs.rs/ndarray-unit/)  
+* Homepage on [crates.io](https://crates.io/crates/ndarray-unit)
+* **Doc** on [doc.rs](https://docs.rs/ndarray-unit/)  
 
 This crate provides a struct representing a [ndarray::ArrayBase](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).
 It allows to do computations taking into account the unit of your n-dimensional array.
@@ -88,5 +88,4 @@ let arr_u2 = ArrayUnit::new(arr2, get_second());
 ```
 
 ## Development
-* Doc of the master branch on
-* [github.io](https://politinsa.github.io/ndarray-unit/)
+* Doc of the master branch on [github.io](https://politinsa.github.io/ndarray-unit/)
