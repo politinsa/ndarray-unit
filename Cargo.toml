@@ -1,6 +1,6 @@
 [package]
 name = "ndarray-unit"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Politinsa <etienne.politinsa@gmail.com>"]
 edition = "2018"
 description = "A package providing a system of units to the ndarray type"
