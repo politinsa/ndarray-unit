@@ -1,4 +1,4 @@
-//! This crate provides a struct representing a [ndarray::ArrayBase](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).  
+//! This crate provides a struct representing a [multidimensionnal array](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).  
 //! It allows to do computations taking into account the unit of your n-dimensional array.
 //!
 //! # Examples

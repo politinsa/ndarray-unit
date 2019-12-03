@@ -7,7 +7,16 @@
 * Homepage on [crates.io](https://crates.io/crates/ndarray-unit)
 * **Doc** on [doc.rs](https://docs.rs/ndarray-unit/)  
 
-This crate provides a struct representing a [ndarray::ArrayBase](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).
+-----
+
+:warning: This project is under active development and this README is using
+documentation comments that might be different than those uploaded on crates.io.
+Always check [doc.rs](https://docs.rs/ndarray-unit/) for up-to-date
+documentation. :warning:  
+
+-----
+
+This crate provides a struct representing a [multidimensionnal array](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).
 It allows to do computations taking into account the unit of your n-dimensional array.
 
 ## Examples
@@ -87,5 +96,37 @@ let arr_u2 = ArrayUnit::new(arr2, get_second());
 // let result = &arr_u1 + &arr_u2; // ==> panicking
 ```
 
+
 ## Development
-* Doc of the master branch on [github.io](https://politinsa.github.io/ndarray-unit/)
+Doc of the master branch on [github.io](https://politinsa.github.io/ndarray-unit/)
+
+### Features
+
+- [x] Basic unit system handling multiplication and division
+- [x] ArrayUnit wrapper for unit + ndarray
+- [ ] Operations on &ArrayUnit
+     - [x] Mul/Div <&ArrayUnit>
+     - [x] Add/Sub <&ArrayUnit> (now panicking if units are not equal, might change that in the future)
+     - [ ] Mul/Div with scalar
+     - [ ] Add/Sub with scalar
+- [ ] Add prefix (mm, cm, dm, m, km)
+- [ ] Basic ndarray function
+     - [ ] Transpose
+     - [ ] Rescale
+     - [ ] ...
+
+
+
+### Tests & Doc
+- [x] Basic unit system handling multiplication and division
+- [x] ArrayUnit wrapper for unit + ndarray
+- [ ] Operations on &ArrayUnit
+     - [ ] Mul/Div <&ArrayUnit>
+     - [ ] Add/Sub <&ArrayUnit> (now panicking if units are not equal, might change that in the future)
+     - [ ] Mul/Div with scalar
+     - [ ] Add/Sub with scalar
+- [ ] Add prefix (mm, cm, dm, m, km)
+- [ ] Basic ndarray function
+     - [ ] Transpose
+     - [ ] Rescale
+     - [ ] ...
