@@ -170,27 +170,166 @@
 <span id="170">170</span>
 <span id="171">171</span>
 <span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! This module provides a struct being a simple representation of the international measure system and an Enum containing all of the seven base unit of the Internation SI.    </span>
-<span class="doccomment">//! It allows to multiply and divise unit between them and to print them.  </span>
-<span class="doccomment">//! Several utility functions are provided to construct your own derived Unit from the base ones</span>
+<span class="doccomment">//! This crate provides a struct representing a [ndarray::ArrayBase](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).  </span>
+<span class="doccomment">//! It allows to do computations taking into account the unit of your n-dimensional array.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! # Exemples</span>
+<span class="doccomment">//! # Examples</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//! use ndarray_unit;</span>
-<span class="doccomment">//! use ndarray_unit::{Unit, BaseUnit};</span>
+<span class="doccomment">//! use ndarray_unit::*;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! let meter_per_sec = Unit::from_vec(vec![(BaseUnit::METER, 1), (BaseUnit::SECOND, -1)]);</span>
-<span class="doccomment">//! println!(&quot;meter_per_sec = {}&quot;, meter_per_sec);</span>
+<span class="doccomment">//! extern crate ndarray;</span>
+<span class="doccomment">//! use ndarray::Array;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! let acceleration = &amp;meter_per_sec / &amp;ndarray_unit::get_second();</span>
-<span class="doccomment">//! println!(&quot;acceleration = {}&quot;, acceleration);</span>
+<span class="doccomment">//! fn main() {</span>
+<span class="doccomment">//!     println!(&quot;meter / second = {}&quot;, &amp;get_meter() / &amp;get_second());</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let arr1 = Array::linspace(30.0, 40.0, 11);</span>
+<span class="doccomment">//!     let arr_u1 = ArrayUnit::new(arr1, get_joule());</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let arr2 = Array::linspace(10.0, 60.0, 11);</span>
+<span class="doccomment">//!     let arr_u2 = ArrayUnit::new(arr2, get_second());</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     let arr3 = ndarray::array![</span>
+<span class="doccomment">//!         [1.0, 0.0, 2.0, 6.0],</span>
+<span class="doccomment">//!         [1.0, 2.0, 3.0, 5.0],</span>
+<span class="doccomment">//!         [1.0, 2.0, 3.0, 6.0]</span>
+<span class="doccomment">//!     ];</span>
+<span class="doccomment">//!     let arr_u3 = ArrayUnit::new(arr3, get_meter());</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     println!(&quot;arr_u3 = {}&quot;, arr_u3);</span>
+<span class="doccomment">//!     println!(&quot;==========================================================&quot;);</span>
+<span class="doccomment">//!     println!(&quot;{}\n*{}\n={}&quot;, &amp;arr_u1, &amp;arr_u2, &amp;arr_u1 * &amp;arr_u2);</span>
+<span class="doccomment">//!     println!(&quot;==========================================================&quot;);</span>
+<span class="doccomment">//!     println!(&quot;{}\n/{}\n={}&quot;, &amp;arr_u1, &amp;arr_u2, &amp;arr_u1 / &amp;arr_u2);</span>
+<span class="doccomment">//!     println!(&quot;==========================================================&quot;);</span>
+<span class="doccomment">//!     println!(&quot;{}\n+{}\n={}&quot;, &amp;arr_u1, &amp;arr_u1, &amp;arr_u1 + &amp;arr_u1);</span>
+<span class="doccomment">//!     println!(&quot;==========================================================&quot;);</span>
+<span class="doccomment">//!     println!(&quot;{}\n-{}\n={}&quot;, &amp;arr_u2, &amp;arr_u2, &amp;arr_u2 - &amp;arr_u2);</span>
+<span class="doccomment">//!     println!(&quot;==========================================================&quot;);</span>
+<span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! **Output**</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//! // meter_per_sec = m·s⁻¹</span>
-<span class="doccomment">//! // acceleration = m·s⁻²</span>
+<span class="doccomment">//! // meter / second = m·s⁻¹</span>
+<span class="doccomment">//! // arr_u3 = [[1, 0, 2, 6],</span>
+<span class="doccomment">//! //  [1, 2, 3, 5],</span>
+<span class="doccomment">//! //  [1, 2, 3, 6]] m</span>
+<span class="doccomment">//! // ==========================================================</span>
+<span class="doccomment">//! // [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40] m²·kg·s⁻²</span>
+<span class="doccomment">//! // *[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] s</span>
+<span class="doccomment">//! // =[300, 465, 640, 825, 1020, 1225, 1440, 1665, 1900, 2145, 2400] m²·kg·s⁻¹</span>
+<span class="doccomment">//! // ==========================================================</span>
+<span class="doccomment">//! // [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40] m²·kg·s⁻²</span>
+<span class="doccomment">//! // /[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] s</span>
+<span class="doccomment">//! // =[3, 2.0666, 1.6, 1.32, 1.1333, 1, 0.9, 0.8222, 0.76, 0.7090, 0.6666] m²·kg·s⁻³</span>
+<span class="doccomment">//! // ==========================================================</span>
+<span class="doccomment">//! // [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40] m²·kg·s⁻²</span>
+<span class="doccomment">//! // +[30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40] m²·kg·s⁻²</span>
+<span class="doccomment">//! // =[60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80] m²·kg·s⁻²</span>
+<span class="doccomment">//! // ==========================================================</span>
+<span class="doccomment">//! // [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] s</span>
+<span class="doccomment">//! // -[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] s</span>
+<span class="doccomment">//! // =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] s</span>
+<span class="doccomment">//! // ==========================================================</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # Panics</span>
+<span class="doccomment">//! The program will panic when you try to add or substract two [ArrayUnit](struct.ArrayUnit.html)s with different [Unit](struct.Unit.html)s.</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! extern crate ndarray;</span>
+<span class="doccomment">//! use ndarray::Array;</span>
+<span class="doccomment">//! use ndarray_unit::*;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let arr1 = Array::linspace(30.0, 40.0, 11);</span>
+<span class="doccomment">//! let arr_u1 = ArrayUnit::new(arr1, get_joule());</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let arr2 = Array::linspace(10.0, 60.0, 11);</span>
+<span class="doccomment">//! let arr_u2 = ArrayUnit::new(arr2, get_second());</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! // let result = &amp;arr_u1 + &amp;arr_u2; // ==&gt; panicking</span>
 <span class="doccomment">//! ```</span>
 
 <span class="attribute">#![<span class="ident">crate_name</span> <span class="op">=</span> <span class="string">&quot;ndarray_unit&quot;</span>]</span>
@@ -236,6 +375,10 @@
     <span class="ident">Unit</span>::<span class="ident">from_vec</span>(<span class="macro">vec</span><span class="macro">!</span>[(<span class="ident">BaseUnit</span>::<span class="ident">AMPERE</span>, <span class="number">1</span>)])
 }
 
+<span class="comment">/////////////////////////////</span>
+<span class="comment">// Getters for other useful units</span>
+<span class="comment">/////////////////////////////</span>
+
 <span class="doccomment">/// Utility method to get a Unit from a BaseUnit (BaseUnit::RADIAN)</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_radian</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Unit</span> {
     <span class="ident">Unit</span>::<span class="ident">from_vec</span>(<span class="macro">vec</span><span class="macro">!</span>[(<span class="ident">BaseUnit</span>::<span class="ident">RADIAN</span>, <span class="number">1</span>)])
@@ -244,6 +387,25 @@
 <span class="doccomment">/// Utility method to get a Unit from a BaseUnit (BaseUnit::STERADIAN)</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_steradian</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Unit</span> {
     <span class="ident">Unit</span>::<span class="ident">from_vec</span>(<span class="macro">vec</span><span class="macro">!</span>[(<span class="ident">BaseUnit</span>::<span class="ident">STERADIAN</span>, <span class="number">1</span>)])
+}
+
+<span class="comment">/////////////////////////////</span>
+<span class="comment">// Getters for economics indicators</span>
+<span class="comment">/////////////////////////////</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_currency</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Unit</span> {
+    <span class="ident">Unit</span>::<span class="ident">from_vec</span>(<span class="macro">vec</span><span class="macro">!</span>[(<span class="ident">BaseUnit</span>::<span class="ident">CURRENCY</span>, <span class="number">1</span>)])
+}
+
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_birth</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Unit</span> {
+    <span class="ident">Unit</span>::<span class="ident">from_vec</span>(<span class="macro">vec</span><span class="macro">!</span>[(<span class="ident">BaseUnit</span>::<span class="ident">BIRTH</span>, <span class="number">1</span>)])
+}
+
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_death</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Unit</span> {
+    <span class="ident">Unit</span>::<span class="ident">from_vec</span>(<span class="macro">vec</span><span class="macro">!</span>[(<span class="ident">BaseUnit</span>::<span class="ident">DEATH</span>, <span class="number">1</span>)])
+}
+
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_inhabitant</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Unit</span> {
+    <span class="ident">Unit</span>::<span class="ident">from_vec</span>(<span class="macro">vec</span><span class="macro">!</span>[(<span class="ident">BaseUnit</span>::<span class="ident">INHABITANT</span>, <span class="number">1</span>)])
 }
 
 <span class="comment">/////////////////////////////</span>

@@ -258,7 +258,64 @@
 <span id="258">258</span>
 <span id="259">259</span>
 <span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="doccomment">//! This module provides a struct being a simple representation of the international measure system and an Enum containing the seven base unit of the Internation SI plus other (radian, currency, pop...).</span>
+<span class="doccomment">//! It allows to multiply and divise unit between them and to print them.</span>
+<span class="doccomment">//! Several utility functions are provided to construct your own derived Unit from the base ones</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # Exemples</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! use ndarray_unit;</span>
+<span class="doccomment">//! use ndarray_unit::{Unit, BaseUnit};</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let meter_per_sec = Unit::from_vec(vec![(BaseUnit::METER, 1), (BaseUnit::SECOND, -1)]);</span>
+<span class="doccomment">//! println!(&quot;meter_per_sec = {}&quot;, meter_per_sec);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let acceleration = &amp;meter_per_sec / &amp;ndarray_unit::get_second();</span>
+<span class="doccomment">//! println!(&quot;acceleration = {}&quot;, acceleration);</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! **Output**</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! // meter_per_sec = m·s⁻¹</span>
+<span class="doccomment">//! // acceleration = m·s⁻²</span>
+<span class="doccomment">//! ```</span>
+
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::{<span class="ident">Div</span>, <span class="ident">Mul</span>};
@@ -274,9 +331,15 @@
     <span class="ident">MOLE</span>,
     <span class="ident">CANDELA</span>,
 
-    <span class="comment">// others</span>
+    <span class="comment">// others useful</span>
     <span class="ident">RADIAN</span>,
     <span class="ident">STERADIAN</span>,
+
+    <span class="comment">// economics indicator</span>
+    <span class="ident">CURRENCY</span>,
+    <span class="ident">INHABITANT</span>,
+    <span class="ident">BIRTH</span>,
+    <span class="ident">DEATH</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
@@ -479,6 +542,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iterator</span> <span class="op">=</span> <span class="ident">list_units</span>.<span class="ident">iter</span>().<span class="ident">peekable</span>();
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">unit</span>, <span class="ident">count</span>)) <span class="op">=</span> <span class="ident">iterator</span>.<span class="ident">next</span>() {
             <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw">match</span> <span class="ident">unit</span> {
+                <span class="comment">// SI</span>
                 <span class="ident">BaseUnit</span>::<span class="ident">METER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m&quot;</span>,
                 <span class="ident">BaseUnit</span>::<span class="ident">SECOND</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;s&quot;</span>,
                 <span class="ident">BaseUnit</span>::<span class="ident">KILOGRAM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;kg&quot;</span>,
@@ -486,8 +550,14 @@
                 <span class="ident">BaseUnit</span>::<span class="ident">KELVIN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;K&quot;</span>,
                 <span class="ident">BaseUnit</span>::<span class="ident">MOLE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;mol&quot;</span>,
                 <span class="ident">BaseUnit</span>::<span class="ident">CANDELA</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;cd&quot;</span>,
+                <span class="comment">// others</span>
                 <span class="ident">BaseUnit</span>::<span class="ident">RADIAN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;rad&quot;</span>,
                 <span class="ident">BaseUnit</span>::<span class="ident">STERADIAN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;sr&quot;</span>,
+                <span class="comment">// eco</span>
+                <span class="ident">BaseUnit</span>::<span class="ident">CURRENCY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;currency&quot;</span>,
+                <span class="ident">BaseUnit</span>::<span class="ident">INHABITANT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;inhabitant&quot;</span>,
+                <span class="ident">BaseUnit</span>::<span class="ident">BIRTH</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;birth&quot;</span>,
+                <span class="ident">BaseUnit</span>::<span class="ident">DEATH</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;death&quot;</span>,
             });
 
             <span class="kw">if</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">count</span> <span class="op">!</span><span class="op">=</span> <span class="number">1</span> {

@@ -1,3 +1,25 @@
+//! This module provides a struct being a simple representation of the international measure system and an Enum containing the seven base unit of the Internation SI plus other (radian, currency, pop...).
+//! It allows to multiply and divise unit between them and to print them.
+//! Several utility functions are provided to construct your own derived Unit from the base ones
+//!
+//! # Exemples
+//!
+//! ```
+//! use ndarray_unit;
+//! use ndarray_unit::{Unit, BaseUnit};
+//!
+//! let meter_per_sec = Unit::from_vec(vec![(BaseUnit::METER, 1), (BaseUnit::SECOND, -1)]);
+//! println!("meter_per_sec = {}", meter_per_sec);
+//!
+//! let acceleration = &meter_per_sec / &ndarray_unit::get_second();
+//! println!("acceleration = {}", acceleration);
+//! ```
+//! **Output**
+//! ```
+//! // meter_per_sec = m·s⁻¹
+//! // acceleration = m·s⁻²
+//! ```
+
 use std::collections::HashMap;
 use std::fmt::{Display, Formatter, Result};
 use std::ops::{Div, Mul};
@@ -13,9 +35,15 @@ pub enum BaseUnit {
     MOLE,
     CANDELA,
 
-    // others
+    // others useful
     RADIAN,
     STERADIAN,
+
+    // economics indicator
+    CURRENCY,
+    INHABITANT,
+    BIRTH,
+    DEATH,
 }
 
 #[derive(Debug, Clone)]
@@ -218,6 +246,7 @@ impl Display for Unit {
         let mut iterator = list_units.iter().peekable();
         while let Some((unit, count)) = iterator.next() {
             res.push_str(match unit {
+                // SI
                 BaseUnit::METER => "m",
                 BaseUnit::SECOND => "s",
                 BaseUnit::KILOGRAM => "kg",
@@ -225,8 +254,14 @@ impl Display for Unit {
                 BaseUnit::KELVIN => "K",
                 BaseUnit::MOLE => "mol",
                 BaseUnit::CANDELA => "cd",
+                // others
                 BaseUnit::RADIAN => "rad",
                 BaseUnit::STERADIAN => "sr",
+                // eco
+                BaseUnit::CURRENCY => "currency",
+                BaseUnit::INHABITANT => "inhabitant",
+                BaseUnit::BIRTH => "birth",
+                BaseUnit::DEATH => "death",
             });
 
             if **count != 1 {

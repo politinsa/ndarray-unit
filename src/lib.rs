@@ -1,23 +1,81 @@
-//! This module provides a struct being a simple representation of the international measure system and an Enum containing all of the seven base unit of the Internation SI.    
-//! It allows to multiply and divise unit between them and to print them.  
-//! Several utility functions are provided to construct your own derived Unit from the base ones
+//! This crate provides a struct representing a [ndarray::ArrayBase](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).  
+//! It allows to do computations taking into account the unit of your n-dimensional array.
 //!
-//! # Exemples
+//! # Examples
 //!
 //! ```
-//! use ndarray_unit;
-//! use ndarray_unit::{Unit, BaseUnit};
+//! use ndarray_unit::*;
 //!
-//! let meter_per_sec = Unit::from_vec(vec![(BaseUnit::METER, 1), (BaseUnit::SECOND, -1)]);
-//! println!("meter_per_sec = {}", meter_per_sec);
+//! extern crate ndarray;
+//! use ndarray::Array;
 //!
-//! let acceleration = &meter_per_sec / &ndarray_unit::get_second();
-//! println!("acceleration = {}", acceleration);
+//! fn main() {
+//!     println!("meter / second = {}", &get_meter() / &get_second());
+//!
+//!     let arr1 = Array::linspace(30.0, 40.0, 11);
+//!     let arr_u1 = ArrayUnit::new(arr1, get_joule());
+//!
+//!     let arr2 = Array::linspace(10.0, 60.0, 11);
+//!     let arr_u2 = ArrayUnit::new(arr2, get_second());
+//!
+//!     let arr3 = ndarray::array![
+//!         [1.0, 0.0, 2.0, 6.0],
+//!         [1.0, 2.0, 3.0, 5.0],
+//!         [1.0, 2.0, 3.0, 6.0]
+//!     ];
+//!     let arr_u3 = ArrayUnit::new(arr3, get_meter());
+//!
+//!     println!("arr_u3 = {}", arr_u3);
+//!     println!("==========================================================");
+//!     println!("{}\n*{}\n={}", &arr_u1, &arr_u2, &arr_u1 * &arr_u2);
+//!     println!("==========================================================");
+//!     println!("{}\n/{}\n={}", &arr_u1, &arr_u2, &arr_u1 / &arr_u2);
+//!     println!("==========================================================");
+//!     println!("{}\n+{}\n={}", &arr_u1, &arr_u1, &arr_u1 + &arr_u1);
+//!     println!("==========================================================");
+//!     println!("{}\n-{}\n={}", &arr_u2, &arr_u2, &arr_u2 - &arr_u2);
+//!     println!("==========================================================");
+//! }
 //! ```
 //! **Output**
 //! ```
-//! // meter_per_sec = m·s⁻¹
-//! // acceleration = m·s⁻²
+//! // meter / second = m·s⁻¹
+//! // arr_u3 = [[1, 0, 2, 6],
+//! //  [1, 2, 3, 5],
+//! //  [1, 2, 3, 6]] m
+//! // ==========================================================
+//! // [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40] m²·kg·s⁻²
+//! // *[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] s
+//! // =[300, 465, 640, 825, 1020, 1225, 1440, 1665, 1900, 2145, 2400] m²·kg·s⁻¹
+//! // ==========================================================
+//! // [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40] m²·kg·s⁻²
+//! // /[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] s
+//! // =[3, 2.0666, 1.6, 1.32, 1.1333, 1, 0.9, 0.8222, 0.76, 0.7090, 0.6666] m²·kg·s⁻³
+//! // ==========================================================
+//! // [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40] m²·kg·s⁻²
+//! // +[30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40] m²·kg·s⁻²
+//! // =[60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80] m²·kg·s⁻²
+//! // ==========================================================
+//! // [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] s
+//! // -[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] s
+//! // =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] s
+//! // ==========================================================
+//! ```
+//!
+//! # Panics
+//! The program will panic when you try to add or substract two [ArrayUnit](struct.ArrayUnit.html)s with different [Unit](struct.Unit.html)s.
+//! ```
+//! extern crate ndarray;
+//! use ndarray::Array;
+//! use ndarray_unit::*;
+//!
+//! let arr1 = Array::linspace(30.0, 40.0, 11);
+//! let arr_u1 = ArrayUnit::new(arr1, get_joule());
+//!
+//! let arr2 = Array::linspace(10.0, 60.0, 11);
+//! let arr_u2 = ArrayUnit::new(arr2, get_second());
+//!
+//! // let result = &arr_u1 + &arr_u2; // ==> panicking
 //! ```
 
 #![crate_name = "ndarray_unit"]
@@ -63,6 +121,10 @@ pub fn get_ampere() -> Unit {
     Unit::from_vec(vec![(BaseUnit::AMPERE, 1)])
 }
 
+/////////////////////////////
+// Getters for other useful units
+/////////////////////////////
+
 /// Utility method to get a Unit from a BaseUnit (BaseUnit::RADIAN)
 pub fn get_radian() -> Unit {
     Unit::from_vec(vec![(BaseUnit::RADIAN, 1)])
@@ -71,6 +133,25 @@ pub fn get_radian() -> Unit {
 /// Utility method to get a Unit from a BaseUnit (BaseUnit::STERADIAN)
 pub fn get_steradian() -> Unit {
     Unit::from_vec(vec![(BaseUnit::STERADIAN, 1)])
+}
+
+/////////////////////////////
+// Getters for economics indicators
+/////////////////////////////
+pub fn get_currency() -> Unit {
+    Unit::from_vec(vec![(BaseUnit::CURRENCY, 1)])
+}
+
+pub fn get_birth() -> Unit {
+    Unit::from_vec(vec![(BaseUnit::BIRTH, 1)])
+}
+
+pub fn get_death() -> Unit {
+    Unit::from_vec(vec![(BaseUnit::DEATH, 1)])
+}
+
+pub fn get_inhabitant() -> Unit {
+    Unit::from_vec(vec![(BaseUnit::INHABITANT, 1)])
 }
 
 /////////////////////////////

@@ -1,5 +1,5 @@
 use std::fmt::{Display, Formatter, Result};
-use std::ops::{Div, Mul};
+use std::ops::{Add, Div, Mul, Sub};
 
 extern crate ndarray;
 use ndarray::{ArrayBase, Data, Dimension};
@@ -20,7 +20,7 @@ where
     T: Data,
     D: Dimension,
 {
-    pub fn from_array_base(arr: ArrayBase<T, D>, u: Unit) -> ArrayUnit<T, D> {
+    pub fn new(arr: ArrayBase<T, D>, u: Unit) -> ArrayUnit<T, D> {
         ArrayUnit {
             unit: u,
             array: arr,
@@ -56,6 +56,44 @@ where
         ArrayUnit {
             unit: &self.unit / &other.unit,
             array: &self.array / &other.array,
+        }
+    }
+}
+
+impl<T, D> Sub for &ArrayUnit<T, D>
+where
+    T: Data,
+    D: Dimension,
+    for<'a> &'a ArrayBase<T, D>: Sub<Output = ArrayBase<T, D>>,
+{
+    type Output = ArrayUnit<T, D>;
+
+    fn sub(self, other: &ArrayUnit<T, D>) -> ArrayUnit<T, D> {
+        if self.unit != other.unit {
+            panic!();
+        }
+        ArrayUnit {
+            unit: self.unit.clone(),
+            array: &self.array - &other.array,
+        }
+    }
+}
+
+impl<T, D> Add for &ArrayUnit<T, D>
+where
+    T: Data,
+    D: Dimension,
+    for<'a> &'a ArrayBase<T, D>: Add<Output = ArrayBase<T, D>>,
+{
+    type Output = ArrayUnit<T, D>;
+
+    fn add(self, other: &ArrayUnit<T, D>) -> ArrayUnit<T, D> {
+        if self.unit != other.unit {
+            panic!();
+        }
+        ArrayUnit {
+            unit: self.unit.clone(),
+            array: &self.array + &other.array,
         }
     }
 }
