@@ -20,11 +20,17 @@ where
     T: Data,
     D: Dimension,
 {
+    /// Create an ArrayUnit from a ndarray::ArrayBase and an Unit
     pub fn new(arr: ArrayBase<T, D>, u: Unit) -> ArrayUnit<T, D> {
         ArrayUnit {
             unit: u,
             array: arr,
         }
+    }
+
+    /// Return a reference to the underlying ndarray::ArrayBase
+    pub fn array(&self) -> &ArrayBase<T, D> {
+        &self.array
     }
 }
 

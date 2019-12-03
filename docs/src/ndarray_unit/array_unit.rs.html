@@ -107,6 +107,12 @@
 <span id="107">107</span>
 <span id="108">108</span>
 <span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::{<span class="ident">Add</span>, <span class="ident">Div</span>, <span class="ident">Mul</span>, <span class="ident">Sub</span>};
@@ -130,11 +136,17 @@
     <span class="ident">T</span>: <span class="ident">Data</span>,
     <span class="ident">D</span>: <span class="ident">Dimension</span>,
 {
+    <span class="doccomment">/// Create an ArrayUnit from a ndarray::ArrayBase and an Unit</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">arr</span>: <span class="ident">ArrayBase</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">D</span><span class="op">&gt;</span>, <span class="ident">u</span>: <span class="ident">Unit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ArrayUnit</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">D</span><span class="op">&gt;</span> {
         <span class="ident">ArrayUnit</span> {
             <span class="ident">unit</span>: <span class="ident">u</span>,
             <span class="ident">array</span>: <span class="ident">arr</span>,
         }
+    }
+
+    <span class="doccomment">/// Return a reference to the underlying ndarray::ArrayBase</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">array</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ArrayBase</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">D</span><span class="op">&gt;</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">array</span>
     }
 }
 
