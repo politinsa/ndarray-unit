@@ -1,13 +1,13 @@
 [package]
 name = "ndarray-unit"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Politinsa <etienne.politinsa@gmail.com>"]
 edition = "2018"
 description = "A package providing a system of units to the ndarray type"
 license = "MIT OR Apache-2.0"
 
 homepage = "https://crates.io/crates/ndarray-unit"
-documentation = "https://doc.rs/ndarray-unit"
+documentation = "https://docs.rs/ndarray-unit"
 repository = "https://github.com/politinsa/ndarray-unit/"
 readme = "README.md"
 
