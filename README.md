@@ -1,5 +1,4 @@
 [![Build Status - Travis](https://travis-ci.com/politinsa/ndarray-unit.svg?branch=master)](https://travis-ci.com/politinsa/ndarray-unit)
-![Build Status - Github](https://github.com/politinsa/ndarray-unit/workflows/Build/badge.svg)
 ![Tests - Github](https://github.com/politinsa/ndarray-unit/workflows/Tests/badge.svg)
 [![crates.io](https://meritbadge.herokuapp.com/ndarray-unit)](https://crates.io/crates/ndarray-unit)
 [![docs.rs](https://docs.rs/ndarray-unit/badge.svg)](https://docs.rs/ndarray-unit/)
