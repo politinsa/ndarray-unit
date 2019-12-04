@@ -1,4 +1,4 @@
-//! This crate provides a struct representing a [multidimensionnal array](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).  
+//! This crate provides a struct representing a [multidimensionnal array](https://docs.rs/ndarray/) together with a `Unit`.  
 //! It allows to do computations taking into account the unit of your n-dimensional array.
 //!
 //! # Examples
@@ -63,7 +63,7 @@
 //! ```
 //!
 //! # Panics
-//! The program will panic when you try to add or substract two [ArrayUnit](struct.ArrayUnit.html)s with different [Unit](struct.Unit.html)s.
+//! The program will panic when you try to add or substract two `ArrayUnit`s with different `Unit`s.
 //! ```
 //! extern crate ndarray;
 //! use ndarray::Array;

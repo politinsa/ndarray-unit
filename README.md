@@ -2,7 +2,7 @@
 ![Build Status - Github](https://github.com/politinsa/ndarray-unit/workflows/Build/badge.svg)
 ![Tests - Github](https://github.com/politinsa/ndarray-unit/workflows/Tests/badge.svg)
 [![crates.io](https://meritbadge.herokuapp.com/ndarray-unit)](https://crates.io/crates/ndarray-unit)
-[![docs.rs](https://docs.rs/ndarray-unit/badge.svg)](https://docs.rs/ndarray-unit/badge.svg?version=0.2.0)
+[![docs.rs](https://docs.rs/ndarray-unit/badge.svg)](https://docs.rs/ndarray-unit/)
 
 # ndarray-unit
 
@@ -18,7 +18,7 @@ documentation. :warning:
 
 -----
 
-This crate provides a struct representing a [multidimensionnal array](https://docs.rs/ndarray/) together with a [Unit](struct.Unit.html).
+This crate provides a struct representing a [multidimensionnal array](https://docs.rs/ndarray/) together with a `Unit`.
 It allows to do computations taking into account the unit of your n-dimensional array.
 
 ## Examples
@@ -83,7 +83,7 @@ fn main() {
 ```
 
 ## Panics
-The program will panic when you try to add or substract two [ArrayUnit](struct.ArrayUnit.html)s with different [Unit](struct.Unit.html)s.
+The program will panic when you try to add or substract two `ArrayUnit`s with different `Unit`s.
 ```rust
 extern crate ndarray;
 use ndarray::Array;

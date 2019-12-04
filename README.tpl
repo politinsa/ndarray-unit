@@ -2,7 +2,7 @@
 ![Build Status - Github](https://github.com/politinsa/ndarray-unit/workflows/Build/badge.svg)
 ![Tests - Github](https://github.com/politinsa/ndarray-unit/workflows/Tests/badge.svg)
 [![crates.io](https://meritbadge.herokuapp.com/ndarray-unit)](https://crates.io/crates/ndarray-unit)
-[![docs.rs](https://docs.rs/ndarray-unit/badge.svg)](https://docs.rs/ndarray-unit/badge.svg?version=0.2.0)
+[![docs.rs](https://docs.rs/ndarray-unit/badge.svg)](https://docs.rs/ndarray-unit/)
 
 # ndarray-unit
 
